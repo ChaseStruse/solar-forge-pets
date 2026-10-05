@@ -1,13 +1,15 @@
 # Solar Forge Pet
 
-A little ASCII cyberpet that lives at the bottom right of your Omarchy desktop. It runs as a native Quattro shell plugin inside `omarchy-shell`, with no separate daemon or extra packages.
+Ember is a little ASCII dragon hatchling that lives at the bottom right of your Omarchy desktop. It runs as a native Quattro shell plugin inside `omarchy-shell`, with no separate daemon or extra packages.
 
 ```text
-  /\_/\
- (=o.o=)
- /     \
-(  | |  )_/~
- \_m_m_/
+       /\__/\
+      ( o  o )
+ /\   / .  . \   /\
+/  \ (  \__/  ) /  \
+\ /\V|  ==  |V/\ /
+ V   |  ==  |   V
+     (m____m)\___/\
 ```
 
 The pet blinks, notices your cursor, reacts to attention, and falls asleep after 90 seconds without interaction. Its neon terminal card has three controls:
@@ -15,7 +17,7 @@ The pet blinks, notices your cursor, reacts to attention, and falls asleep after
 | Control | Effect |
 | --- | --- |
 | Click the pet or **PAT** | Give it attention |
-| **FEED** | Give it some bytes to snack on |
+| **FEED** | Treat Ember to toasted berries |
 | **NAP** | Let it sleep until you hover over it |
 
 ## Install

@@ -10,7 +10,7 @@ Item {
   id: pet
 
   property string mood: "idle"
-  property string message: "awaiting input_"
+  property string message: "guarding tiny treasures"
   property bool hovered: false
   property int pulse: 0
   property double lastInteraction: Date.now()
@@ -21,21 +21,23 @@ Item {
   readonly property color hot: "#ec79ff"
 
   readonly property string face: {
-    if (mood === "sleep") return " (=-.-=)"
-    if (mood === "happy") return " (=^.^=)"
-    if (mood === "blink") return " (=-.-=)"
-    if (hovered) return " (=o.o=)"
-    return " (=o.o=)"
+    if (mood === "sleep") return "      ( -  - )"
+    if (mood === "happy") return "      ( ^  ^ )"
+    if (mood === "blink") return "      ( -  - )"
+    if (hovered) return "      ( O  O )"
+    return "      ( o  o )"
   }
 
   // Keep every pose on the same character grid. Centering individual lines
-  // shifts the ears, body and tail away from each other.
+  // shifts the horns, wings and tail away from each other.
   readonly property string artwork: [
-    "  /\\_/\\      ",
-    face + "     ",
-    " /     \\     ",
-    "(  | |  )_/~ ",
-    " \\_m_m_/     "
+    "       /\\__/\\       ",
+    face + "       ",
+    " /\\   / .  . \\   /\\ ",
+    "/  \\ (  \\__/  ) /  \\",
+    "\\ /\\V|  ==  |V/\\ / ",
+    " V   |  ==  |   V   ",
+    "     (m____m)\\___/\\ "
   ].join("\n")
 
   function interact(action) {
@@ -43,14 +45,14 @@ Item {
     responseTimer.restart()
     if (action === "FEED") {
       mood = "happy"
-      message = "crunching bytes... yum!"
+      message = "mmm... toasted berries!"
     } else if (action === "NAP") {
       mood = "sleep"
-      message = "suspending to dreamland"
+      message = "dreaming of dragon gold"
       responseTimer.stop()
     } else {
       mood = "happy"
-      message = "affection.exe running"
+      message = "a happy little rumble"
     }
   }
 
@@ -60,10 +62,10 @@ Item {
     onTriggered: {
       if (pet.hovered) {
         pet.mood = "idle"
-        pet.message = "cursor detected <3"
+        pet.message = "a visitor! <3"
       } else {
         pet.mood = "idle"
-        pet.message = "awaiting input_"
+        pet.message = "guarding tiny treasures"
       }
     }
   }
@@ -74,13 +76,13 @@ Item {
     repeat: true
     onTriggered: {
       pet.pulse++
-      if (pet.hovered || responseTimer.running) return
+      if (pet.hovered || responseTimer.running || pet.mood === "sleep") return
       if (Date.now() - pet.lastInteraction > 90000) {
         pet.mood = "sleep"
-        pet.message = "idle: dreaming in hex"
+        pet.message = "curled up on the hoard"
       } else {
         pet.mood = pet.pulse % 4 === 0 ? "blink" : "idle"
-        pet.message = pet.pulse % 3 === 0 ? "compiling good vibes" : "awaiting input_"
+        pet.message = pet.pulse % 3 === 0 ? "one day I'll fly!" : "guarding tiny treasures"
       }
     }
   }
@@ -89,7 +91,7 @@ Item {
     id: window
     visible: true
     implicitWidth: 226
-    implicitHeight: 205
+    implicitHeight: 245
     anchors { right: true; bottom: true }
     margins { right: 24; bottom: 24 }
     color: "transparent"
@@ -119,7 +121,7 @@ Item {
       Text {
         x: 25
         y: 8
-        text: "SOLAR.FORGE / PET_01"
+        text: "EMBER / HATCHLING"
         textFormat: Text.PlainText
         font.family: "monospace"
         font.pixelSize: 10
@@ -141,7 +143,7 @@ Item {
         x: 18
         y: 39
         width: parent.width - 36
-        height: 100
+        height: 140
 
         Text {
           anchors.centerIn: parent
@@ -149,7 +151,7 @@ Item {
           textFormat: Text.PlainText
           horizontalAlignment: Text.AlignLeft
           font.family: "monospace"
-          font.pixelSize: 16
+          font.pixelSize: 14
           font.bold: true
           lineHeight: 1.0
           color: pet.mood === "sleep" ? pet.dimInk : pet.ink
@@ -162,12 +164,12 @@ Item {
           onEntered: {
             pet.hovered = true
             if (pet.mood === "sleep") pet.mood = "idle"
-            if (!responseTimer.running) pet.message = "cursor detected <3"
+            if (!responseTimer.running) pet.message = "a visitor! <3"
             pet.lastInteraction = Date.now()
           }
           onExited: {
             pet.hovered = false
-            if (!responseTimer.running) pet.message = "awaiting input_"
+            if (!responseTimer.running) pet.message = "guarding tiny treasures"
           }
           onClicked: pet.interact("PAT")
         }
@@ -175,7 +177,7 @@ Item {
 
       Text {
         x: 13
-        y: 142
+        y: 182
         width: parent.width - 26
         text: "> " + pet.message
         elide: Text.ElideRight
@@ -187,7 +189,7 @@ Item {
 
       Row {
         x: 12
-        y: 166
+        y: 206
         spacing: 6
 
         Repeater {

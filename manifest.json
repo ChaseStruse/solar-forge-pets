@@ -5,7 +5,7 @@
   "version": "0.1.0",
   "author": "Chase Struse",
   "license": "MIT",
-  "description": "An interactive ASCII cyberpet for the Omarchy desktop.",
+  "description": "Ember, a friendly ASCII dragon hatchling for the Omarchy desktop.",
   "kinds": ["service"],
   "entryPoints": {
     "service": "Pet.qml"
