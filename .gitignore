@@ -1,0 +1,20 @@
+# Local development and generated output
+.cache/
+.qmlls.ini
+*.qmlc
+*.jsc
+__pycache__/
+*.py[cod]
+build/
+dist/
+coverage/
+*.log
+*.swp
+*.swo
+.DS_Store
+
+# Local configuration and secrets
+.env
+.env.*
+!.env.example
+*.local
