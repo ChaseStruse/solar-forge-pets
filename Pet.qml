@@ -20,25 +20,9 @@ Item {
   readonly property color glow: "#55f5ad"
   readonly property color hot: "#ec79ff"
 
-  readonly property string face: {
-    if (mood === "sleep") return "      ( -  - )"
-    if (mood === "happy") return "      ( ^  ^ )"
-    if (mood === "blink") return "      ( -  - )"
-    if (hovered) return "      ( O  O )"
-    return "      ( o  o )"
-  }
-
-  // Keep every pose on the same character grid. Centering individual lines
-  // shifts the horns, wings and tail away from each other.
-  readonly property string artwork: [
-    "       /\\__/\\       ",
-    face + "       ",
-    " /\\   / .  . \\   /\\ ",
-    "/  \\ (  \\__/  ) /  \\",
-    "\\ /\\V|  ==  |V/\\ / ",
-    " V   |  ==  |   V   ",
-    "     (m____m)\\___/\\ "
-  ].join("\n")
+  // The original transparent sheet has four equal 627px cells.
+  readonly property int spriteFrame: mood === "sleep" ? 3
+    : mood === "happy" ? 2 : mood === "blink" ? 1 : 0
 
   function interact(action) {
     lastInteraction = Date.now()
@@ -53,6 +37,14 @@ Item {
     } else {
       mood = "happy"
       message = "a happy little rumble"
+    }
+  }
+
+  Timer {
+    id: blinkTimer
+    interval: 180
+    onTriggered: {
+      if (pet.mood === "blink") pet.mood = "idle"
     }
   }
 
@@ -82,6 +74,7 @@ Item {
         pet.message = "curled up on the hoard"
       } else {
         pet.mood = pet.pulse % 4 === 0 ? "blink" : "idle"
+        if (pet.mood === "blink") blinkTimer.restart()
         pet.message = pet.pulse % 3 === 0 ? "one day I'll fly!" : "guarding tiny treasures"
       }
     }
@@ -91,7 +84,7 @@ Item {
     id: window
     visible: true
     implicitWidth: 226
-    implicitHeight: 245
+    implicitHeight: 285
     anchors { right: true; bottom: true }
     margins { right: 24; bottom: 24 }
     color: "transparent"
@@ -143,18 +136,20 @@ Item {
         x: 18
         y: 39
         width: parent.width - 36
-        height: 140
+        height: 180
 
-        Text {
+        Image {
           anchors.centerIn: parent
-          text: pet.artwork
-          textFormat: Text.PlainText
-          horizontalAlignment: Text.AlignLeft
-          font.family: "monospace"
-          font.pixelSize: 14
-          font.bold: true
-          lineHeight: 1.0
-          color: pet.mood === "sleep" ? pet.dimInk : pet.ink
+          width: 180
+          height: 180
+          source: Qt.resolvedUrl("assets/ember-sprites.png")
+          sourceSize: Qt.size(1254, 1254)
+          sourceClipRect: Qt.rect((pet.spriteFrame % 2) * 627,
+                                 Math.floor(pet.spriteFrame / 2) * 627, 627, 627)
+          fillMode: Image.PreserveAspectFit
+          smooth: true
+          scale: pet.hovered ? 1.035 : 1
+          Behavior on scale { NumberAnimation { duration: 140 } }
         }
 
         MouseArea {
@@ -177,7 +172,7 @@ Item {
 
       Text {
         x: 13
-        y: 182
+        y: 222
         width: parent.width - 26
         text: "> " + pet.message
         elide: Text.ElideRight
@@ -189,7 +184,7 @@ Item {
 
       Row {
         x: 12
-        y: 206
+        y: 246
         spacing: 6
 
         Repeater {

@@ -1,16 +1,8 @@
 # Solar Forge Pet
 
-Ember is a little ASCII dragon hatchling that lives at the bottom right of your Omarchy desktop. It runs as a native Quattro shell plugin inside `omarchy-shell`, with no separate daemon or extra packages.
+Ember is a little pixel-art dragon hatchling that lives at the bottom right of your Omarchy desktop. It runs as a native Quattro shell plugin inside `omarchy-shell`, with no separate daemon or extra packages.
 
-```text
-       /\__/\
-      ( o  o )
- /\   / .  . \   /\
-/  \ (  \__/  ) /  \
-\ /\V|  ==  |V/\ /
- V   |  ==  |   V
-     (m____m)\___/\
-```
+![Ember's awake, blinking, happy, and sleeping sprite poses](assets/ember-sprites.png)
 
 The pet blinks, notices your cursor, reacts to attention, and falls asleep after 90 seconds without interaction. Its neon terminal card has three controls:
 
@@ -49,7 +41,9 @@ omarchy plugin remove io.github.chasestruse.solar-forge-pet
 
 ## Develop
 
-The repository root is the plugin folder. `manifest.json` declares one `service` entry point, `Pet.qml`. The service owns a small Wayland layer-shell window and loads with Omarchy's existing shell process. After copying changes into `~/.config/omarchy/plugins/io.github.chasestruse.solar-forge-pet/`, run `omarchy restart shell` to clear cached service QML and show the updated pet.
+The repository root is the plugin folder. `manifest.json` declares one `service` entry point, `Pet.qml`. The service owns a small Wayland layer-shell window and loads with Omarchy's existing shell process. Local installs need `manifest.json`, `Pet.qml`, and the `assets/` directory. After copying changes into `~/.config/omarchy/plugins/io.github.chasestruse.solar-forge-pet/`, run `omarchy restart shell` to clear cached service QML and show the updated pet.
+
+The transparent sprite sheet has four poses selected by the pet's mood. Its generation prompt and layout are documented in [assets/README.md](assets/README.md).
 
 Validate the manifest before sharing changes:
 

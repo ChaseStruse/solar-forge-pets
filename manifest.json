@@ -2,10 +2,10 @@
   "schemaVersion": 1,
   "id": "io.github.chasestruse.solar-forge-pet",
   "name": "Solar Forge Pet",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "author": "Chase Struse",
   "license": "MIT",
-  "description": "Ember, a friendly ASCII dragon hatchling for the Omarchy desktop.",
+  "description": "Ember, an interactive pixel-art dragon hatchling for the Omarchy desktop.",
   "kinds": ["service"],
   "entryPoints": {
     "service": "Pet.qml"
