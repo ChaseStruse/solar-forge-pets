@@ -21,12 +21,22 @@ Item {
   readonly property color hot: "#ec79ff"
 
   readonly property string face: {
-    if (mood === "sleep") return "[ -.- ]"
-    if (mood === "happy") return "[ ^.^ ]"
-    if (mood === "blink") return "[ -_- ]"
-    if (hovered) return "[ >.o ]"
-    return "[ >.< ]"
+    if (mood === "sleep") return " (=-.-=)"
+    if (mood === "happy") return " (=^.^=)"
+    if (mood === "blink") return " (=-.-=)"
+    if (hovered) return " (=o.o=)"
+    return " (=o.o=)"
   }
+
+  // Keep every pose on the same character grid. Centering individual lines
+  // shifts the ears, body and tail away from each other.
+  readonly property string artwork: [
+    "  /\\_/\\      ",
+    face + "     ",
+    " /     \\     ",
+    "(  | |  )_/~ ",
+    " \\_m_m_/     "
+  ].join("\n")
 
   function interact(action) {
     lastInteraction = Date.now()
@@ -135,13 +145,13 @@ Item {
 
         Text {
           anchors.centerIn: parent
-          text: " /\\_/\\\n" + pet.face + "\n /|#|\\\n  / \\"
+          text: pet.artwork
           textFormat: Text.PlainText
-          horizontalAlignment: Text.AlignHCenter
+          horizontalAlignment: Text.AlignLeft
           font.family: "monospace"
-          font.pixelSize: 17
+          font.pixelSize: 16
           font.bold: true
-          lineHeight: 0.96
+          lineHeight: 1.0
           color: pet.mood === "sleep" ? pet.dimInk : pet.ink
         }
 

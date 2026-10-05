@@ -3,10 +3,11 @@
 A little ASCII cyberpet that lives at the bottom right of your Omarchy desktop. It runs as a native Quattro shell plugin inside `omarchy-shell`, with no separate daemon or extra packages.
 
 ```text
- /\_/\
-[ >.< ]
- /|#|\
-  / \
+  /\_/\
+ (=o.o=)
+ /     \
+(  | |  )_/~
+ \_m_m_/
 ```
 
 The pet blinks, notices your cursor, reacts to attention, and falls asleep after 90 seconds without interaction. Its neon terminal card has three controls:
@@ -46,7 +47,7 @@ omarchy plugin remove io.github.chasestruse.solar-forge-pet
 
 ## Develop
 
-The repository root is the plugin folder. `manifest.json` declares one `service` entry point, `Pet.qml`. The service owns a small Wayland layer-shell window and loads with Omarchy's existing shell process. Changes to plugin files hot-reload when the plugin is installed in `~/.config/omarchy/plugins/`.
+The repository root is the plugin folder. `manifest.json` declares one `service` entry point, `Pet.qml`. The service owns a small Wayland layer-shell window and loads with Omarchy's existing shell process. After copying changes into `~/.config/omarchy/plugins/io.github.chasestruse.solar-forge-pet/`, run `omarchy restart shell` to clear cached service QML and show the updated pet.
 
 Validate the manifest before sharing changes:
 
